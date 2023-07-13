@@ -20,8 +20,9 @@ Route::get('/', function () {
 
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::get('/mediaInfractor/create',[App\Http\Controllers\MediaInfractorController::class, 'create'])->name('mediaInfractor.create');
+/*Route::get('/mediaInfractor/create',[App\Http\Controllers\MediaInfractorController::class, 'create'])->name('mediaInfractor.create');
 Route::post('/mediaInfractor/store',[App\Http\Controllers\MediaInfractorController::class, 'store'])->name('mediaInfractor.store');
 
 Route::get('/mediaInfractor/identifyUser',[App\Http\Controllers\MediaInfractorController::class, 'identify'])->name('mediaInfractor.identify');
 Route::post('/mediaInfractor/identifyUser',[App\Http\Controllers\MediaInfractorController::class, 'identifyUser'])->name('mediaInfractor.identifyUser');
+*/

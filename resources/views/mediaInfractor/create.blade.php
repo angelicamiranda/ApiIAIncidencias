@@ -29,7 +29,7 @@
                                 <label for="foto" class="col-md-4 col-form-label text-md-right">{{ __('Imagen') }}</label>
 
                                 <div class="col-md-6">
-                                    <input id="foto" type="file" class="form-control-file @error('foto') is-invalid @enderror" name="foto" required>
+                                    <input id="foto" type="text" class="form-control-file @error('foto') is-invalid @enderror" name="foto" required>
 
                                     @error('foto')
                                         <span class="invalid-feedback" role="alert">

@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Aws\Rekognition\RekognitionClient;
 use Illuminate\Support\Facades\Storage;
 use App\Models\User;
+use Illuminate\Validation\Rules\Unique;
 
 class MediaInfractorController extends Controller
 {
@@ -37,19 +38,19 @@ class MediaInfractorController extends Controller
         $media->nombre = $request->nombre ;
 
  // Validar la solicitud y obtener el archivo de imagen
-            $request->validate([
-                'foto' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
-            ]);
-            $image = $request->file('foto');
+
+            $image64 = $request->foto;
+            $imagedec = base64_decode($image64);
+            $image = uniqid().'.jpg';
 
             // Generar un nombre único para la imagen
-            $imageName = time() . '.' . $image->getClientOriginalExtension();
-            $folder ='infractor';
+           // $imageName = time() . '.' . $image->getClientOriginalExtension();
+            $folder ='infractor/'.$image;
             // Obtener la URL de la imagen almacenada en S3
-            $imageUrl =Storage::disk('s3')->put($folder, $image, 'public');
+            $imageUrl =Storage::disk('s3')->put($folder, $imagedec, 'public');
 
 
-            $media->url = 'https://s3-sw2-taller.s3.us-east-2.amazonaws.com/'.$imageUrl;
+            $media->url = 'https://s3-sw2-taller.s3.us-east-2.amazonaws.com/'.$folder;
 
 
         $media->save();
@@ -104,18 +105,19 @@ class MediaInfractorController extends Controller
 
         $medias = MediaInfractor::all();
 
-        if ($request->hasFile('foto')) {
-            $image = $request->file('foto');
+        if (!empty($request->foto)) {
+            $image64 = $request->foto;
+            $imagedec = base64_decode($image64);
+            $image = uniqid().'.jpg';
 
             // Generar un nombre único para la imagen
-            $imageName = time() . '.' . $image->getClientOriginalExtension();
-            $folder ='infractor';
+           // $imageName = time() . '.' . $image->getClientOriginalExtension();
+            $folder ='infractor/'.$image;
             // Obtener la URL de la imagen almacenada en S3
-            $imageUrl =  Storage::disk('s3')->put($folder, $image, 'public');
-
+            $imageUrl =Storage::disk('s3')->put($folder, $imagedec, 'public');
             foreach ($medias as $media) {
                 if ($media->url) {
-                    $image1 = substr($imageUrl, 0, strlen($imageUrl));
+                    $image1 = $folder;
                     $image2 = substr($media->url, 49, strlen($media->url));
                     $client = new RekognitionClient([
                         'region' => 'us-east-2',
@@ -142,7 +144,11 @@ class MediaInfractorController extends Controller
 
                     if (!empty($resultLabels)) {
                         return response()->json(['media' => $media], 200);
+
                     }
+
+
+
                 }
             }
         }
