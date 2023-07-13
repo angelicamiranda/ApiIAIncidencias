@@ -34,7 +34,7 @@ class MediaInfractorController extends Controller
 
         $media = new MediaInfractor();
 
-
+        $media->nombre = $request->nombre ;
 
  // Validar la solicitud y obtener el archivo de imagen
             $request->validate([
@@ -51,7 +51,7 @@ class MediaInfractorController extends Controller
 
             $media->url = 'https://s3-sw2-taller.s3.us-east-2.amazonaws.com/'.$imageUrl;
 
-            $media->base64 = base64_encode($media->url);
+
         $media->save();
             // Haz algo con la URL, como guardarla en la base de datos o mostrarla al usuario
 

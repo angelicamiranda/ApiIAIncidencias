@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('MEDIA_INFRACTOR', function (Blueprint $table) {
             $table->id();
+            $table->string('nombre');
             $table->string('url');
-            $table->string('base64');
             $table->timestamps();
         });
     }
