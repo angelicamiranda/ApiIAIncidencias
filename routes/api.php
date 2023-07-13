@@ -22,5 +22,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 //Route::get('/mediaInfractor/create', [MediaInfractorController::class, 'create'])->name('mediaInfractor.create');
 Route::post('/mediaInfractor/store', [MediaInfractorController::class, 'store'])->name('mediaInfractor.store');
-//Route::get('/mediaInfractor/identifyUser', [MediaInfractorController::class, 'identify'])->name('mediaInfractor.identify');
+Route::get('/mediaInfractor', [MediaInfractorController::class, 'index'])->name('mediaInfractor.index');
 Route::post('/mediaInfractor/identifyUser', [MediaInfractorController::class, 'identifyUser'])->name('mediaInfractor.identifyUser');

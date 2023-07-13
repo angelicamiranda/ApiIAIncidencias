@@ -16,7 +16,9 @@ class MediaInfractorController extends Controller
      */
     public function index()
     {
-        //
+        $medias = MediaInfractor::all();
+
+        return response()->json(['data' => $medias], 200);
     }
 
     /**
