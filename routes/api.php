@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Http\Request;
+use App\Http\Controllers\MediaInfractorController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,3 +18,9 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+
+//Route::get('/mediaInfractor/create', [MediaInfractorController::class, 'create'])->name('mediaInfractor.create');
+Route::post('/mediaInfractor/store', [MediaInfractorController::class, 'store'])->name('mediaInfractor.store');
+//Route::get('/mediaInfractor/identifyUser', [MediaInfractorController::class, 'identify'])->name('mediaInfractor.identify');
+Route::post('/mediaInfractor/identifyUser', [MediaInfractorController::class, 'identifyUser'])->name('mediaInfractor.identifyUser');

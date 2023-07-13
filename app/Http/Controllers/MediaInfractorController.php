@@ -55,7 +55,7 @@ class MediaInfractorController extends Controller
         $media->save();
             // Haz algo con la URL, como guardarla en la base de datos o mostrarla al usuario
 
-            return 'Imagen subida exitosamente. URL: ' . $imageUrl;
+            return response()->json(['url' => $media->url], 200);
     }
 
     /**
